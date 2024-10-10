@@ -17,7 +17,8 @@
       }
     }
   ]
-}</code>
+}
+</code>
 
 <h2>Android tech stack</h2>
 <ul>
