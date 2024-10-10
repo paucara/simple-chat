@@ -5,7 +5,8 @@
 <h2>Configure RealTime Database</h2>
 <h4>Export the JSON data into the database.</h4>
 
-<code>{
+<code>
+{
   "chats": [
     {
       "messages": {
