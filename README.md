@@ -5,8 +5,7 @@
 <h2>Configure RealTime Database</h2>
 <h4>Export the JSON data into the database.</h4>
 
-<code>
-{
+<code>{
   "chats": [
     {
       "messages": {
@@ -18,18 +17,14 @@
       }
     }
   ]
-}
-</code>
+}</code>
 
 <h2>Android tech stack</h2>
 <ul>
   <li>Written with kotlin</li>
   <li>Jetpack Compose</li>
   <li>Coroutines</li>
-  <li>DataStore</li>
-  <li>Room</li>
+  <li>RealTime Database</li>
   <li>Hilt</li>
-  <li><a href="https://github.com/boguszpawlowski/ComposeCalendar">Compose calendar</a></li>
-  <li><a href="https://github.com/LottieFiles/dotlottie-android">Dot Lottie Android</a></li>
 </ul>
 
