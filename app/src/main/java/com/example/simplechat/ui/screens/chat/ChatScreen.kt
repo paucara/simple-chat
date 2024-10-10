@@ -5,10 +5,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -36,7 +34,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -44,16 +41,17 @@ import com.example.simplechat.data.model.Message
 import com.example.simplechat.ui.theme.signikaFamily
 
 @Composable
-fun ChatScreen(onNavigateToSettings: () -> Unit, viewModel: ChatViewModel = hiltViewModel()) {
+fun ChatScreen(viewModel: ChatViewModel = hiltViewModel()) {
 
     val messages = viewModel.messages.collectAsState(initial = null)
     val message = viewModel.messageState.value
 
     Scaffold(
         modifier = Modifier.padding(start = 15.dp),
-        topBar = { ChatTopBar(onNavigateToSettings) },
+        topBar = { ChatTopBar() },
         bottomBar = { ChatBottomBar(viewModel::onMessageChange, viewModel::sendMessage, message) }
     ) { paddingValues ->
+
         Column(modifier = Modifier.padding(paddingValues)) {
             messages.value?.let { ChatContent(it) }
         }
@@ -112,7 +110,7 @@ fun ChatBottomBar(
 }
 
 @Composable
-fun ChatTopBar(onNavigateToSettings: () -> Unit) {
+fun ChatTopBar() {
 
     val context = LocalContext.current
 
@@ -127,7 +125,7 @@ fun ChatTopBar(onNavigateToSettings: () -> Unit) {
                 .weight(5F)
                 .height(40.dp), fontFamily = signikaFamily, fontSize = 25.sp
         )
-        Box(modifier = Modifier.weight(1F)){
+        Box(modifier = Modifier.weight(1F)) {
             IconButton(onClick = { expanded = !expanded }) {
                 Icon(imageVector = Icons.Default.MoreVert, contentDescription = null)
             }
@@ -136,21 +134,13 @@ fun ChatTopBar(onNavigateToSettings: () -> Unit) {
                 onDismissRequest = { expanded = false }
             ) {
                 DropdownMenuItem(
-                    text = { Text("Settings") },
-                    onClick = {
-                        expanded = !expanded
-                        onNavigateToSettings()
-                    }
-                )
-                DropdownMenuItem(
                     text = { Text("About") },
-                    onClick = { Toast.makeText(context, "About", Toast.LENGTH_SHORT).show() }
+                    onClick = { Toast.makeText(context, "AP DEV", Toast.LENGTH_SHORT).show() }
                 )
             }
         }
     }
 }
-
 
 @Composable
 fun MessageBubble(message: String) {
@@ -158,47 +148,3 @@ fun MessageBubble(message: String) {
         Text(text = message, fontFamily = signikaFamily, fontWeight = FontWeight.Light)
     }
 }
-
-@Preview(showSystemUi = true)
-@Composable
-fun ChatPreview() {
-    Column {
-        repeat(5) {
-            MessageBubble(message = "It is a long established fact that a reader")
-        }
-    }
-}
-
-
-@Composable
-fun Demo_DropDownMenu() {
-    val context = LocalContext.current
-    var expanded by remember { mutableStateOf(false) }
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentSize(Alignment.TopEnd)
-    ) {
-        IconButton(onClick = { expanded = !expanded }) {
-            Icon(
-                imageVector = Icons.Default.MoreVert,
-                contentDescription = "More"
-            )
-        }
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
-        ) {
-            DropdownMenuItem(
-                text = { Text("Load") },
-                onClick = { Toast.makeText(context, "Load", Toast.LENGTH_SHORT).show() }
-            )
-            DropdownMenuItem(
-                text = { Text("Save") },
-                onClick = { Toast.makeText(context, "Save", Toast.LENGTH_SHORT).show() }
-            )
-        }
-    }
-}
-

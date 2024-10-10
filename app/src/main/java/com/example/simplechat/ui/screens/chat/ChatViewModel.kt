@@ -37,5 +37,10 @@ class ChatViewModel @Inject constructor(
                 Log.e("error","error send message D:")
             }
         }
+        clearMessage()
+    }
+
+    private fun clearMessage(){
+        _messageState.value = ""
     }
 }
